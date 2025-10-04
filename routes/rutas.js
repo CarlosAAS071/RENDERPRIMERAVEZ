@@ -1,23 +1,31 @@
 import { Router } from "express";
 const router = Router();
 
-// Ruta principal -> renderiza home.ejs
+var artistas =["Taylor Swift", "Nicki Minaj", "Adele", "bbno$",]
+
+router.get("/", function   (req, res){
+  res.render("home", {artistas});
+})
+
 router.get("/", (req, res) => {
   res.render("home");
 
-
 });
 
-
-
-// Ruta /info -> muestra texto
 router.get("/info", (req, res) => {
   res.render("informacion");
 });
 
-// Ruta /c -> muestra texto de contacto
 router.get("/c", (req, res) => {
   res.render("contactanos");
 });
 
 export default router;
+
+router.post("/c", function(req, res) {
+  var nombre = req.body.nombre;
+  var edad = req.body.edad;
+  console.log("Nombre :" + nombre + "Edad" + edad);
+  res.render("Respuesta", {nombre,edad});
+});
+
