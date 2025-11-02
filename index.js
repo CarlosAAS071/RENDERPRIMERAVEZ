@@ -1,16 +1,21 @@
 import express from "express";
 import rutas from "./routes/rutas.js";
+import conectarBD from "./BD/bd.js"
 
-const app = express();
+const app = express()
 
-app.set("view engine", "ejs");
+async function conexion(){
+  await conectarBD()
+}
 
-// Aquí usas todas las rutas que definiste en rutas.js
-app.use("/", rutas);
-app.use("/c", rutas);
-app.use("/info", rutas);
+conexion()
+
+app.use(express.urlencoded({extend:true}))
+app.set("view engine", "ejs")
+app.use("/",rutas)
+
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+app.listen(PORT, function(){
   console.log("Aplicación en http://localhost:" + PORT);
-});
+})
